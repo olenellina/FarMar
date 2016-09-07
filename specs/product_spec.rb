@@ -24,4 +24,20 @@ describe 'Testing Product Class' do
     expect (product1.vendor.vendor_id).must_equal(313)
   end
 
+  it 'testing to ensure for a given FarMar::Sale product id, we can get back a collection of the associated sale instances' do
+    product2 = FarMar::Product.find(2185)
+    expect (product2.sales.length).must_equal(8)
+  end
+
+# number_of_sales: returns the number of times this product has been sold.
+  it 'testing to ensure for a given product id, we can get back the number of times that product has been sold' do
+    product3 = FarMar::Product.find(2201)
+    expect (product3.number_of_sales).must_equal(4)
+  end
+
+  # self.by_vendor(vendor_id): returns all of the products with the given vendor_id
+  it 'testing to ensure for a given vendor id, we can get a list of products for that vendor id' do
+    expect (FarMar::Product.by_vendor(860).length).must_equal(5)
+  end
+
 end
