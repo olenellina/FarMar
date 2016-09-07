@@ -18,4 +18,9 @@ describe 'Testing Market Class' do
   it 'testing to ensure that self.find does not return nil' do
     expect (FarMar::Market.find(300)).wont_be_nil
   end
+
+  it 'testing to ensure for a given market, we can get a list of associated vendors' do
+    market1 = FarMar::Market.find(299)
+    expect (market1.vendors.length).must_equal(6)
+  end
 end

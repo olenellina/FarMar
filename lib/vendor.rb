@@ -1,6 +1,9 @@
 require 'csv'
 require_relative '../far_mar'
 require 'awesome_print'
+require_relative './market'
+require_relative './product'
+require_relative './sale'
 
 class FarMar::Vendor
   attr_reader :vendors, :vendor_id, :vendor_name, :num_employees, :market_id
@@ -35,14 +38,55 @@ class FarMar::Vendor
     end
   end
 
-# market: returns the FarMar::Market instance that is associated with this vendor using the FarMar::Vendor market_id field
+  def market
+    return FarMar::Market.find(self.market_id)
+  end
+
+  def products
+    product_collection = []
+    products = FarMar::Product.all
+      products.length.times do |x|
+        if products[x].vendor_id == self.vendor_id
+          product_collection << products[x]
+        end
+      end
+    return product_collection
+  end
+
+  def sales
+    sale_collection = []
+    sales = FarMar::Sale.all
+      sales.length.times do |x|
+        if sales[x].vendor_id == self.vendor_id
+          sale_collection << sales[x]
+        end
+      end
+    return sale_collection
+  end
+
+  def revenue
+    revenue = 0
+    sales = FarMar::Sale.all
+    sales.length.times do |x|
+      if sales[x].vendor_id == self.vendor_id
+        revenue += sales[x].amount
+      end
+    end
+    return revenue
+  end
+
+end
+
+
 # products: returns a collection of FarMar::Product instances that are associated by the FarMar::Product vendor_id field.
 # sales: returns a collection of FarMar::Sale instances that are associated by the vendor_id field.
 # revenue: returns the the sum of all of the vendor's sales (in cents)
 # self.by_market(market_id): returns all of the vendors with the given market_id
 
-end
-
 # FarMar::Vendor.csv_processor("./support/vendors.csv")
+# FarMar::Market.csv_processor("./support/markets.csv")
 # FarMar::Vendor.all
 # puts FarMar::Vendor.find(1213)
+#
+# vendor1 = FarMar::Vendor.find(299)
+# puts vendor1.market

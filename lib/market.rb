@@ -21,9 +21,11 @@ class FarMar::Market
 
   def self.csv_processor(csvfile)
        CSV.open(csvfile, "r").each do |line|
-         market_hash = {market_id: line[0], market_name: line[1], address: line[2], city: line[3], county: line[4], state: line[5], zip: line[6]}
+         market_hash = {market_id: line[0], market_name: line[1], address: line[2], city: line[3], county: line[4], state: line[5], zip:
+           line[6]}
          FarMar::Market.new(market_hash)
        end
+       return @@markets
   end
 
   def self.all
@@ -38,11 +40,11 @@ class FarMar::Market
     end
   end
 
-  def self.vendors(market_id)
+  def vendors
     vendor_collection = []
     vendors = FarMar::Vendor.all
       vendors.length.times do |x|
-        if vendors[x].market_id == market_id
+        if vendors[x].market_id == self.market_id
           vendor_collection << vendors[x]
         end
       end
@@ -53,8 +55,10 @@ end
 
 # HOW TO ACCESS: ap @@markets[0].market_id
 
-FarMar::Vendor.csv_processor("./support/vendors.csv")
-FarMar::Market.csv_processor("./support/markets.csv")
-# ap FarMar::Market.all
-# puts FarMar::Market.find(300)
-puts FarMar::Market.vendors(143)
+# FarMar::Vendor.csv_processor("./support/vendors.csv")
+# FarMar::Market.csv_processor("./support/markets.csv")
+#
+# # ap FarMar::Market.all.vendors
+# market1 = FarMar::Market.find(299)
+# puts market1
+# ap market1.vendors

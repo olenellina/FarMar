@@ -1,6 +1,7 @@
 require 'csv'
 require_relative '../far_mar'
 require 'awesome_print'
+require_relative './market'
 
 class FarMar::Product
   attr_reader :products, :product_id, :product_name, :vendor_id
@@ -17,7 +18,7 @@ class FarMar::Product
 
   def self.csv_processor(csvfile)
     CSV.open(csvfile, "r").each do |line|
-      vendor_hash = {product_id: line[0], product_name: line[1], vendor_id: line[3]}
+      vendor_hash = {product_id: line[0], product_name: line[1], vendor_id: line[2]}
       FarMar::Product.new(vendor_hash)
     end
   end
