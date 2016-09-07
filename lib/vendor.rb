@@ -30,6 +30,11 @@ class FarMar::Vendor
     return @@vendors
   end
 
+  def self.by_market(market_id)
+    market = FarMar::Market.find(market_id)
+    return market.vendors
+  end
+
   def self.find(id)
     @@vendors.length.times do |x|
       if @@vendors[x].vendor_id == id
@@ -76,17 +81,3 @@ class FarMar::Vendor
   end
 
 end
-
-
-# products: returns a collection of FarMar::Product instances that are associated by the FarMar::Product vendor_id field.
-# sales: returns a collection of FarMar::Sale instances that are associated by the vendor_id field.
-# revenue: returns the the sum of all of the vendor's sales (in cents)
-# self.by_market(market_id): returns all of the vendors with the given market_id
-
-# FarMar::Vendor.csv_processor("./support/vendors.csv")
-# FarMar::Market.csv_processor("./support/markets.csv")
-# FarMar::Vendor.all
-# puts FarMar::Vendor.find(1213)
-#
-# vendor1 = FarMar::Vendor.find(299)
-# puts vendor1.market

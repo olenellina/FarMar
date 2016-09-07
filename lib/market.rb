@@ -52,13 +52,3 @@ class FarMar::Market
   end
 
 end
-
-# HOW TO ACCESS: ap @@markets[0].market_id
-
-# FarMar::Vendor.csv_processor("./support/vendors.csv")
-# FarMar::Market.csv_processor("./support/markets.csv")
-#
-# # ap FarMar::Market.all.vendors
-# market1 = FarMar::Market.find(299)
-# puts market1
-# ap market1.vendors

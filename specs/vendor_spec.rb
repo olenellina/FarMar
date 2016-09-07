@@ -19,7 +19,7 @@ describe 'Testing Vendor Class' do
     expect (FarMar::Vendor.find(300)).wont_be_nil
   end
 
-  it 'testing to ensure the corret market instance is returned for a provided vendor using the market_id field' do
+  it 'testing to ensure the correct market instance is returned for a provided vendor using the market_id field' do
     vendor1 = FarMar::Vendor.find(299)
     expect (vendor1.market.market_id).must_equal(55)
   end
@@ -37,6 +37,10 @@ describe 'Testing Vendor Class' do
   it 'testing to ensure for a given vendor id, we can get the associated total sales revenue' do
     vendor4 = FarMar::Vendor.find(400)
     expect (vendor4.revenue).must_equal(9368)
+  end
+
+  it 'testing to ensure for a given market id, we can get back a collection of associated vendors' do
+    expect (FarMar::Vendor.by_market(415).length).must_equal(10)
   end
 
 end

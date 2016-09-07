@@ -2,6 +2,7 @@ require 'csv'
 require_relative '../far_mar'
 require 'awesome_print'
 require_relative './market'
+require_relative './vendor'
 
 class FarMar::Product
   attr_reader :products, :product_id, :product_name, :vendor_id
@@ -35,8 +36,14 @@ class FarMar::Product
     end
   end
 
+  def vendor
+    return FarMar::Vendor.find(self.vendor_id)
+  end
+
 end
 
-# FarMar::Product.csv_processor("./support/products.csv")
-# FarMar::Product.all
-# puts FarMar::Product.find(2079)
+
+# vendor: returns the FarMar::Vendor instance that is associated with this vendor using the FarMar::Product vendor_id field
+# sales: returns a collection of FarMar::Sale instances that are associated using the FarMar::Sale product_id field.
+# number_of_sales: returns the number of times this product has been sold.
+# self.by_vendor(vendor_id): returns all of the products with the given vendor_id
