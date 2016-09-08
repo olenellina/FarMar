@@ -38,14 +38,7 @@ class FarMar::Vendor
   end
 
   def products
-    product_collection = []
-    products = FarMar::Product.all
-      products.length.times do |x|
-        if products[x].vendor_id == self.vendor_id
-          product_collection << products[x]
-        end
-      end
-    return product_collection
+    return FarMar::Product.by_vendor(self.vendor_id)
   end
 
   def sales
