@@ -1,8 +1,7 @@
 require_relative '../far_mar'
 
 class FarMar::Market
-  attr_reader :markets, :market_id, :market_name, :address, :city, :county, :state, :zip
-  @@markets = []
+  attr_reader :market_id, :market_name, :address, :city, :county, :state, :zip
 
   def initialize(market_hash)
     @market_id = market_hash[:market_id].to_i
@@ -12,27 +11,24 @@ class FarMar::Market
     @county = market_hash[:county]
     @state = market_hash[:state]
     @zip = market_hash[:zip]
-
-    @@markets << self
-  end
-
-  def self.csv_processor(csvfile)
-       CSV.open(csvfile, "r").each do |line|
-         market_hash = {market_id: line[0], market_name: line[1], address: line[2], city: line[3], county: line[4], state: line[5], zip:
-           line[6]}
-         FarMar::Market.new(market_hash)
-       end
-       return @@markets
   end
 
   def self.all
-    return @@markets
+    markets = []
+    CSV.open("./support/markets.csv", "r").each do |line|
+      market_hash = {market_id: line[0], market_name: line[1], address: line[2], city: line[3], county: line[4], state: line[5], zip:
+        line[6]}
+      markets << FarMar::Market.new(market_hash)
+    end
+    return markets
+
   end
 
   def self.find(id)
-    @@markets.length.times do |x|
-      if @@markets[x].market_id == id
-        return @@markets[x]
+    markets = self.all
+    markets.length.times do |x|
+      if markets[x].market_id == id
+        return markets[x]
       end
     end
   end

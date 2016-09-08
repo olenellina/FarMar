@@ -1,7 +1,6 @@
 require_relative 'spec_helper'
 
 describe 'Testing Vendor Class' do
-  FarMar::Vendor.csv_processor("./support/vendors.csv")
 
   it 'testing that the self.all method for the Vendor Class will return an Array' do
     expect ((FarMar::Vendor.all).class).must_equal(Array)

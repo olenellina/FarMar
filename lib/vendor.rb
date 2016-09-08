@@ -1,28 +1,22 @@
 require_relative '../far_mar'
 
 class FarMar::Vendor
-  attr_reader :vendors, :vendor_id, :vendor_name, :num_employees, :market_id
-  @@vendors = []
+  attr_reader :vendor_id, :vendor_name, :num_employees, :market_id
 
   def initialize(vendor_hash)
     @vendor_id = vendor_hash[:vendor_id].to_i
     @vendor_name = vendor_hash[:vendor_name]
     @num_employees = vendor_hash[:num_employees].to_i
     @market_id = vendor_hash[:market_id].to_i
-
-    @@vendors << self
-  end
-
-
-  def self.csv_processor(csvfile)
-    CSV.open(csvfile, "r").each do |line|
-      vendor_hash = {vendor_id: line[0], vendor_name: line[1], num_employees: line[2], market_id: line[3]}
-      FarMar::Vendor.new(vendor_hash)
-    end
   end
 
   def self.all
-    return @@vendors
+    vendors = []
+    CSV.open("./support/vendors.csv", "r").each do |line|
+      vendor_hash = {vendor_id: line[0], vendor_name: line[1], num_employees: line[2], market_id: line[3]}
+      vendors << FarMar::Vendor.new(vendor_hash)
+    end
+    return vendors
   end
 
   def self.by_market(market_id)
@@ -31,9 +25,10 @@ class FarMar::Vendor
   end
 
   def self.find(id)
-    @@vendors.length.times do |x|
-      if @@vendors[x].vendor_id == id
-        return @@vendors[x]
+    vendors = self.all
+    vendors.length.times do |x|
+      if vendors[x].vendor_id == id
+        return vendors[x]
       end
     end
   end

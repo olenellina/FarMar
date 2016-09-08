@@ -1,9 +1,8 @@
 require_relative 'spec_helper'
 
 describe 'Testing Sale Class' do
-  FarMar::Sale.csv_processor("./support/sales.csv")
 
-  it 'testing that the self.all method for the Sale Class will return an Array' do
+it 'testing that the self.all method for the Sale Class will return an Array' do
     expect ((FarMar::Sale.all).class).must_equal(Array)
   end
 

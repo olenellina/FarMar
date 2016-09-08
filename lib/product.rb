@@ -1,33 +1,28 @@
 require_relative '../far_mar'
 
 class FarMar::Product
-  attr_reader :products, :product_id, :product_name, :vendor_id
-  @@products = []
+  attr_reader :product_id, :product_name, :vendor_id
 
   def initialize(product_hash)
     @product_id = product_hash[:product_id].to_i
     @product_name = product_hash[:product_name]
     @vendor_id = product_hash[:vendor_id].to_i
-
-    @@products << self
-  end
-
-
-  def self.csv_processor(csvfile)
-    CSV.open(csvfile, "r").each do |line|
-      vendor_hash = {product_id: line[0], product_name: line[1], vendor_id: line[2]}
-      FarMar::Product.new(vendor_hash)
-    end
   end
 
   def self.all
-    return @@products
+    products = []
+    CSV.open("./support/products.csv", "r").each do |line|
+      products_hash = {product_id: line[0], product_name: line[1], vendor_id: line[2]}
+      products << FarMar::Product.new(products_hash)
+    end
+    return products
   end
 
   def self.find(id)
-    @@products.length.times do |x|
-      if @@products[x].product_id.to_i == id
-        return @@products[x]
+    products = self.all
+    products.length.times do |x|
+      if products[x].product_id.to_i == id
+        return products[x]
       end
     end
   end

@@ -1,8 +1,7 @@
 require_relative '../far_mar'
 
 class FarMar::Sale
-  attr_reader :sales, :sale_id, :amount, :purchase_time, :vendor_id, :product_id
-  @@sales = []
+  attr_reader :sale_id, :amount, :purchase_time, :vendor_id, :product_id
 
   def initialize(sale_hash)
     @sale_id = sale_hash[:sale_id].to_i
@@ -10,26 +9,22 @@ class FarMar::Sale
     @purchase_time = DateTime.strptime(sale_hash[:purchase_time], '%m/%e/%Y %k:%M')
     @vendor_id = sale_hash[:vendor_id].to_i
     @product_id = sale_hash[:product_id].to_i
-
-    @@sales << self
-  end
-
-
-  def self.csv_processor(csvfile)
-    CSV.open(csvfile, "r").each do |line|
-      vendor_hash = {sale_id: line[0], amount: line[1], purchase_time: line[2], vendor_id: line[3], product_id: line[4]}
-      FarMar::Sale.new(vendor_hash)
-    end
   end
 
   def self.all
-    return @@sales
+    sales = []
+    CSV.open("./support/sales.csv", "r").each do |line|
+      sales_hash = {sale_id: line[0], amount: line[1], purchase_time: line[2], vendor_id: line[3], product_id: line[4]}
+      sales << FarMar::Sale.new(sales_hash)
+    end
+    return sales
   end
 
   def self.find(id)
-    @@sales.length.times do |x|
-      if @@sales[x].sale_id.to_i == id
-        return @@sales[x]
+    sales = self.all
+    sales.length.times do |x|
+      if sales[x].sale_id.to_i == id
+        return sales[x]
       end
     end
   end
@@ -54,5 +49,3 @@ class FarMar::Sale
   end
 
 end
-
-# self.between(beginning_time, end_time): returns a collection of FarMar::Sale objects where the purchase time is between the two times given as arguments
