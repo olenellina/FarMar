@@ -24,4 +24,8 @@ it 'testing that the self.all method for the Sale Class will return an Array' do
     expect FarMar::Sale.between(DateTime.new(2001,2,3,4,5,6), DateTime.new(2014,2,3,4,5,6)).wont_be_nil
   end
 
+  it 'testing to ensure that the correct sales time is returned for a given sales id' do
+    expect (FarMar::Sale.find(1).purchase_time.to_s).must_equal("2013-11-07T04:34:56-08:00")
+  end
+
 end

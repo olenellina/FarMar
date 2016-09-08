@@ -25,7 +25,7 @@ describe 'Testing Vendor Class' do
     expect (vendor3.sales.length).must_equal(7)
   end
 
-  it 'testing to ensure for a given vendor id, we can get the associated total sales revenue' do
+  it 'testing to ensure for a given vendor id, we can get the associated total sales revenue in cents' do
     vendor4 = FarMar::Vendor.find(400)
     expect (vendor4.revenue).must_equal(9368)
   end
