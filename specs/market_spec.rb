@@ -1,6 +1,4 @@
 require_relative 'spec_helper'
-require_relative '../lib/market'
-
 
 describe 'Testing Market Class' do
   FarMar::Market.csv_processor("./support/markets.csv")
@@ -23,4 +21,5 @@ describe 'Testing Market Class' do
     market1 = FarMar::Market.find(299)
     expect (market1.vendors.length).must_equal(6)
   end
+  
 end

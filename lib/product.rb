@@ -1,8 +1,4 @@
-require 'csv'
 require_relative '../far_mar'
-require 'awesome_print'
-require_relative './market'
-require_relative './vendor'
 
 class FarMar::Product
   attr_reader :products, :product_id, :product_name, :vendor_id
@@ -67,6 +63,3 @@ class FarMar::Product
   end
 
 end
-
-
-# self.by_vendor(vendor_id): returns all of the products with the given vendor_id

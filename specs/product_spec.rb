@@ -1,6 +1,4 @@
 require_relative 'spec_helper'
-require_relative '../lib/product'
-
 
 describe 'Testing Product Class' do
   FarMar::Product.csv_processor("./support/products.csv")

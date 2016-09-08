@@ -1,9 +1,4 @@
-require 'csv'
 require_relative '../far_mar'
-require 'awesome_print'
-require_relative './market'
-require_relative './product'
-require_relative './sale'
 
 class FarMar::Vendor
   attr_reader :vendors, :vendor_id, :vendor_name, :num_employees, :market_id

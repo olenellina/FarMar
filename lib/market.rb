@@ -1,7 +1,4 @@
-require 'csv'
 require_relative '../far_mar'
-require 'awesome_print'
-require_relative './vendor'
 
 class FarMar::Market
   attr_reader :markets, :market_id, :market_name, :address, :city, :county, :state, :zip
