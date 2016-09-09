@@ -1,6 +1,6 @@
 #Market Class Spec
 
-require_relative 'spec_helper'
+require 'spec_helper'
 
 describe 'Testing Market Class' do
 

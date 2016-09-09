@@ -1,6 +1,6 @@
 # Sale Class
 
-require_relative '../far_mar'
+require './far_mar'
 
 class FarMar::Sale < FarMar::Shared
   attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id

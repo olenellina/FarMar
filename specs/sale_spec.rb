@@ -1,6 +1,6 @@
 #Sale Class Spec
 
-require_relative 'spec_helper'
+require 'spec_helper'
 
 describe 'Testing Sale Class' do
 

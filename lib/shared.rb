@@ -1,6 +1,6 @@
 # Shared Methods Class
 
-require_relative '../far_mar'
+require './far_mar'
 
 class FarMar::Shared
 

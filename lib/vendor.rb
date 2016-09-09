@@ -1,6 +1,6 @@
 # Vendor Class
 
-require_relative '../far_mar'
+require './far_mar'
 
 class FarMar::Vendor < FarMar::Shared
   attr_reader :id, :vendor_name, :num_employees, :market_id

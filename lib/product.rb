@@ -1,6 +1,6 @@
 # Product Class
 
-require_relative '../far_mar'
+require './far_mar'
 
 class FarMar::Product < FarMar::Shared
   attr_reader :id, :product_name, :vendor_id

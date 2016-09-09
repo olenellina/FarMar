@@ -1,6 +1,6 @@
 # Market Class
 
-require_relative '../far_mar'
+require './far_mar'
 
 class FarMar::Market < FarMar::Shared
   attr_reader :id, :market_name, :address, :city, :county, :state, :zip
