@@ -10,7 +10,7 @@ class FarMar::Sale < FarMar::Shared
 
   def initialize(sale_hash)
     @id = sale_hash[:sale_id].to_i
-    @amount = sale_hash[:amount].to_i
+    @amount = sale_hash[:amount].to_f
     @purchase_time = DateTime.strptime(sale_hash[:purchase_time], "%F %T %z")
     @vendor_id = sale_hash[:vendor_id].to_i
     @product_id = sale_hash[:product_id].to_i
