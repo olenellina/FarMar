@@ -1,3 +1,5 @@
+#Sale Class Spec
+
 require_relative 'spec_helper'
 
 describe 'Testing Sale Class' do

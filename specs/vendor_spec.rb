@@ -1,3 +1,5 @@
+#Vendor Class Spec
+
 require_relative 'spec_helper'
 
 describe 'Testing Vendor Class' do
@@ -56,6 +58,10 @@ describe 'Testing Vendor Class' do
 
   it 'testing to ensure for a sample market id, we do not get back an empty array' do
     expect (FarMar::Vendor.by_market(FarMar::Vendor.all.sample.market_id)).wont_be_empty
+  end
+
+  it 'testing to ensure that an ArgumentError is raised if the market id does not exist' do
+  expect (proc {FarMar::Vendor.by_market(13000)}).must_raise ArgumentError
   end
 
 end
