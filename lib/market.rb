@@ -2,14 +2,14 @@
 
 require_relative '../far_mar'
 
-class FarMar::Market
-  attr_reader :market_id, :market_name, :address, :city, :county, :state, :zip
+class FarMar::Market < FarMar::Shared
+  attr_reader :id, :market_name, :address, :city, :county, :state, :zip
 
   # Reading in the associated csv file for this class and storing it in a constant (for efficency).
   MARKETS_DATA = CSV.read("./support/markets.csv")
 
   def initialize(market_hash)
-    @market_id = market_hash[:market_id].to_i
+    @id = market_hash[:market_id].to_i
     @market_name = market_hash[:market_name]
     @address = market_hash[:address]
     @city = market_hash[:city]
@@ -28,28 +28,12 @@ class FarMar::Market
     return markets
   end
 
- # self.find returns the object associated with the id or raises an ArgumentError if the id cannot be found
-  def self.find(id)
-    markets = self.all
-    market_obj = nil
-    markets.each do |market|
-      if market.market_id == id
-        market_obj = market
-      end
-    end
-    if market_obj.nil?
-      raise ArgumentError.new("This id cannot be found")
-    else
-      return market_obj
-    end
-  end
-
   # vendors returns a collection of vendors objects for the market id associated with the market object calling this method. It will return an empty array if no vendors are associated with the market.
   def vendors
     vendor_collection = []
     vendors = FarMar::Vendor.all
       vendors.each do |vendor|
-        if vendor.market_id == self.market_id
+        if vendor.market_id == self.id
           vendor_collection << vendor
         end
       end

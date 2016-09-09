@@ -24,7 +24,7 @@ describe 'Testing Product Class' do
 
   it 'testing to ensure the correct vendor instance is returned for a provided vendor using the FarMar::Product vendor_id field' do
     product1 = FarMar::Product.find(969)
-    expect (product1.vendor.vendor_id).must_equal(313)
+    expect (product1.vendor.id).must_equal(313)
   end
 
   it 'testing to ensure for a given FarMar::Sale product id, we can get back a collection of the associated sale instances' do

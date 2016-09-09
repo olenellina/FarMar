@@ -24,12 +24,12 @@ describe 'Testing Sale Class' do
 
   it 'testing to ensure the correct vendor instance is returned for a provided vendor using the FarMar::Sale vendor_id field' do
     sale1 = FarMar::Sale.find(3311)
-    expect (sale1.vendor.vendor_id).must_equal(735)
+    expect (sale1.vendor.id).must_equal(735)
   end
 
   it 'testing to ensure the correct product instance is returned for a provided sale using the FarMar::Sale product_id field' do
     sale2 = FarMar::Sale.find(4254)
-    expect (sale2.product.product_id).must_equal(2921)
+    expect (sale2.product.id).must_equal(2921)
   end
 
   # Lots of extra tests for the between method, as this was the buggiest area of my code

@@ -2,14 +2,14 @@
 
 require_relative '../far_mar'
 
-class FarMar::Product
-  attr_reader :product_id, :product_name, :vendor_id
+class FarMar::Product < FarMar::Shared
+  attr_reader :id, :product_name, :vendor_id
 
-  # Reading in the associated csv file for this class and storing it in a constant (for efficency). 
+  # Reading in the associated csv file for this class and storing it in a constant (for efficency).
   PRODUCTS_DATA = CSV.read("./support/products.csv")
 
   def initialize(product_hash)
-    @product_id = product_hash[:product_id].to_i
+    @id = product_hash[:product_id].to_i
     @product_name = product_hash[:product_name]
     @vendor_id = product_hash[:vendor_id].to_i
   end
@@ -22,22 +22,6 @@ class FarMar::Product
       products << FarMar::Product.new(products_hash)
     end
     return products
-  end
-
- # self.find returns the object associated with the id or raises an ArgumentError if the id cannot be found
-  def self.find(id)
-    products = self.all
-    product_obj = nil
-    products.each do |product|
-      if product.product_id.to_i == id
-        product_obj = product
-      end
-    end
-    if product_obj.nil?
-      raise ArgumentError.new("This id cannot be found")
-    else
-      return product_obj
-    end
   end
 
   # self.by_vendor returns a collection of the associated products for a provided vendor id. It will return an empty array if no products are associated with the vendor id provided.
@@ -61,7 +45,7 @@ class FarMar::Product
     sale_collection = []
     sales = FarMar::Sale.all
       sales.each do |sale|
-        if sale.product_id == self.product_id
+        if sale.product_id == self.id
           sale_collection << sale
         end
       end

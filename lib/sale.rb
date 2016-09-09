@@ -2,14 +2,14 @@
 
 require_relative '../far_mar'
 
-class FarMar::Sale
-  attr_reader :sale_id, :amount, :purchase_time, :vendor_id, :product_id
+class FarMar::Sale < FarMar::Shared
+  attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id
 
   # Reading in the associated csv file for this class and storing it in a constant (for efficency)
   SALES_DATA = CSV.read("./support/sales.csv")
 
   def initialize(sale_hash)
-    @sale_id = sale_hash[:sale_id].to_i
+    @id = sale_hash[:sale_id].to_i
     @amount = sale_hash[:amount].to_i
     @purchase_time = DateTime.strptime(sale_hash[:purchase_time], "%F %T %z")
     @vendor_id = sale_hash[:vendor_id].to_i
@@ -24,22 +24,6 @@ class FarMar::Sale
       sales << FarMar::Sale.new(sales_hash)
     end
     return sales
-  end
-
- # self.find returns the object associated with the id or raises an ArgumentError if the id cannot be found
-  def self.find(id)
-    sales = self.all
-    sale_obj = nil
-    sales.each do |sale|
-      if sale.sale_id.to_i == id
-        sale_obj = sale
-      end
-    end
-    if sale_obj.nil?
-      raise ArgumentError.new("This id cannot be found")
-    else
-      return sale_obj
-    end
   end
 
 # self.between has heavy dependencies on the correct format of the DateTime data in each object's purchase_time attribute.

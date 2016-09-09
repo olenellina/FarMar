@@ -24,7 +24,7 @@ describe 'Testing Vendor Class' do
 
   it 'testing to ensure the correct market instance is returned for a provided vendor using the market_id field' do
     vendor1 = FarMar::Vendor.find(299)
-    expect (vendor1.market.market_id).must_equal(55)
+    expect (vendor1.market.id).must_equal(55)
   end
 
   it 'testing to ensure for a given vendor id, we can get a list of products for that vendor id' do
@@ -57,7 +57,7 @@ describe 'Testing Vendor Class' do
   end
 
   it 'testing to ensure for a sample market id, we do not get back an empty array' do
-    expect (FarMar::Vendor.by_market(FarMar::Vendor.all.sample.market_id)).wont_be_empty
+    expect (FarMar::Vendor.by_market(FarMar::Market.all.sample.id)).wont_be_empty
   end
 
   it 'testing to ensure that an ArgumentError is raised if the market id does not exist' do

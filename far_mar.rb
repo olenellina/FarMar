@@ -6,6 +6,7 @@ require 'awesome_print'
 module FarMar
 end
 
+require './lib/shared'
 require './lib/market'
 require './lib/vendor'
 require './lib/product'
