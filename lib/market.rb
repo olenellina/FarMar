@@ -5,7 +5,8 @@ require_relative '../far_mar'
 class FarMar::Market
   attr_reader :market_id, :market_name, :address, :city, :county, :state, :zip
 
-  MARKET_CSV_FILE = "./support/markets.csv"
+  # Reading in the associated csv file for this class and storing it in a constant (for efficency)
+  MARKETS_DATA = CSV.read("./support/markets.csv")
 
   def initialize(market_hash)
     @market_id = market_hash[:market_id].to_i
@@ -17,12 +18,12 @@ class FarMar::Market
     @zip = market_hash[:zip]
   end
 
-  # self.all opens up the associated csv file (constant) and populates a hash. That hash is then used to create objects that are then stored in an array (local variable). It is that array that is returned anytime self.all is called.
+  # self.all uses the constant MARKETS_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
   def self.all
     markets = []
-    CSV.open(MARKET_CSV_FILE, "r").each do |line|
-      market_hash = {market_id: line[0], market_name: line[1], address: line[2], city: line[3], county: line[4], state: line[5], zip:
-        line[6]}
+    MARKETS_DATA.length.times do |x|
+      market_hash = {market_id: MARKETS_DATA[x][0], market_name: MARKETS_DATA[x][1], address: MARKETS_DATA[x][2], city: MARKETS_DATA[x][3], county: MARKETS_DATA[x][4], state: MARKETS_DATA[x][5], zip:
+        MARKETS_DATA[x][6]}
       markets << FarMar::Market.new(market_hash)
     end
     return markets

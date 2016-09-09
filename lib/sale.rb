@@ -5,7 +5,8 @@ require_relative '../far_mar'
 class FarMar::Sale
   attr_reader :sale_id, :amount, :purchase_time, :vendor_id, :product_id
 
-  SALE_CSV_FILE = "./support/sales.csv"
+  # Reading in the associated csv file for this class and storing it in a constant (for efficency)
+  SALES_DATA = CSV.read("./support/sales.csv")
 
   def initialize(sale_hash)
     @sale_id = sale_hash[:sale_id].to_i
@@ -15,11 +16,11 @@ class FarMar::Sale
     @product_id = sale_hash[:product_id].to_i
   end
 
-  # self.all opens up the associated csv file (constant) and populates a hash. That hash is then used to create objects that are then stored in an array (local variable). It is that array that is returned anytime self.all is called.
+  # self.all uses the constant SALES_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
   def self.all
     sales = []
-    CSV.open(SALE_CSV_FILE, "r").each do |line|
-      sales_hash = {sale_id: line[0], amount: line[1], purchase_time: line[2], vendor_id: line[3], product_id: line[4]}
+    SALES_DATA.length.times do |x|
+      sales_hash = {sale_id: SALES_DATA[x][0], amount: SALES_DATA[x][1], purchase_time: SALES_DATA[x][2], vendor_id: SALES_DATA[x][3], product_id: SALES_DATA[x][4]}
       sales << FarMar::Sale.new(sales_hash)
     end
     return sales
