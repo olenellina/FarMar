@@ -5,7 +5,7 @@ require_relative '../far_mar'
 class FarMar::Market
   attr_reader :market_id, :market_name, :address, :city, :county, :state, :zip
 
-  # Reading in the associated csv file for this class and storing it in a constant (for efficency)
+  # Reading in the associated csv file for this class and storing it in a constant (for efficency).
   MARKETS_DATA = CSV.read("./support/markets.csv")
 
   def initialize(market_hash)

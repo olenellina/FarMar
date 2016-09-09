@@ -5,7 +5,7 @@ require_relative '../far_mar'
 class FarMar::Product
   attr_reader :product_id, :product_name, :vendor_id
 
-  # Reading in the associated csv file for this class and storing it in a constant (for efficency)
+  # Reading in the associated csv file for this class and storing it in a constant (for efficency). 
   PRODUCTS_DATA = CSV.read("./support/products.csv")
 
   def initialize(product_hash)
