@@ -17,8 +17,8 @@ class FarMar::Product
   # self.all uses the constant PRODUCTS_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
   def self.all
     products = []
-    PRODUCTS_DATA.length.times do |x|
-      products_hash = {product_id: PRODUCTS_DATA[x][0], product_name: PRODUCTS_DATA[x][1], vendor_id: PRODUCTS_DATA[x][2]}
+    PRODUCTS_DATA.each do |product|
+      products_hash = {product_id: product[0], product_name: product[1], vendor_id: product[2]}
       products << FarMar::Product.new(products_hash)
     end
     return products
@@ -27,16 +27,16 @@ class FarMar::Product
  # self.find returns the object associated with the id or raises an ArgumentError if the id cannot be found
   def self.find(id)
     products = self.all
-    product = nil
-    products.length.times do |x|
-      if products[x].product_id.to_i == id
-        product = products[x]
+    product_obj = nil
+    products.each do |product|
+      if product.product_id.to_i == id
+        product_obj = product
       end
     end
-    if product.nil?
+    if product_obj.nil?
       raise ArgumentError.new("This id cannot be found")
     else
-      return product
+      return product_obj
     end
   end
 
@@ -44,9 +44,9 @@ class FarMar::Product
   def self.by_vendor(vendor_id)
     product_collection = []
     products = FarMar::Product.all
-      products.length.times do |x|
-        if products[x].vendor_id == vendor_id
-          product_collection << products[x]
+      products.each do |product|
+        if product.vendor_id == vendor_id
+          product_collection << product
         end
       end
     return product_collection
@@ -60,9 +60,9 @@ class FarMar::Product
   def sales
     sale_collection = []
     sales = FarMar::Sale.all
-      sales.length.times do |x|
-        if sales[x].product_id == self.product_id
-          sale_collection << sales[x]
+      sales.each do |sale|
+        if sale.product_id == self.product_id
+          sale_collection << sale
         end
       end
     return sale_collection

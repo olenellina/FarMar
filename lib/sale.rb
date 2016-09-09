@@ -19,8 +19,8 @@ class FarMar::Sale
   # self.all uses the constant SALES_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
   def self.all
     sales = []
-    SALES_DATA.length.times do |x|
-      sales_hash = {sale_id: SALES_DATA[x][0], amount: SALES_DATA[x][1], purchase_time: SALES_DATA[x][2], vendor_id: SALES_DATA[x][3], product_id: SALES_DATA[x][4]}
+    SALES_DATA.each do |sale|
+      sales_hash = {sale_id: sale[0], amount: sale[1], purchase_time: sale[2], vendor_id: sale[3], product_id: sale[4]}
       sales << FarMar::Sale.new(sales_hash)
     end
     return sales
@@ -29,16 +29,16 @@ class FarMar::Sale
  # self.find returns the object associated with the id or raises an ArgumentError if the id cannot be found
   def self.find(id)
     sales = self.all
-    sale = nil
-    sales.length.times do |x|
-      if sales[x].sale_id.to_i == id
-        sale = sales[x]
+    sale_obj = nil
+    sales.each do |sale|
+      if sale.sale_id.to_i == id
+        sale_obj = sale
       end
     end
-    if sale.nil?
+    if sale_obj.nil?
       raise ArgumentError.new("This id cannot be found")
     else
-      return sale
+      return sale_obj
     end
   end
 
@@ -46,9 +46,9 @@ class FarMar::Sale
   def self.between(beginning_time, end_time)
     sale_collection = []
     sales = FarMar::Sale.all
-      sales.length.times do |x|
-        if sales[x].purchase_time >= beginning_time && sales[x].purchase_time <= end_time
-          sale_collection << sales[x]
+      sales.each do |sale|
+        if sale.purchase_time >= beginning_time && sale.purchase_time <= end_time
+          sale_collection << sale
         end
       end
     return sale_collection

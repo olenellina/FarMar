@@ -18,8 +18,8 @@ class FarMar::Vendor
   # self.all uses the constant VENDORS_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
   def self.all
     vendors = []
-    VENDORS_DATA.length.times do |x|
-      vendor_hash = {vendor_id: VENDORS_DATA[x][0], vendor_name: VENDORS_DATA[x][1], num_employees: VENDORS_DATA[x][2], market_id: VENDORS_DATA[x][3]}
+    VENDORS_DATA.each do |vendor|
+      vendor_hash = {vendor_id: vendor[0], vendor_name: vendor[1], num_employees: vendor[2], market_id: vendor[3]}
       vendors << FarMar::Vendor.new(vendor_hash)
     end
     return vendors
@@ -34,16 +34,16 @@ class FarMar::Vendor
  # self.find returns the object associated with the id or raises an ArgumentError if the id cannot be found
   def self.find(id)
     vendors = self.all
-    vendor = nil
-    vendors.length.times do |x|
-      if vendors[x].vendor_id == id
-        vendor = vendors[x]
+    vendor_obj = nil
+    vendors.each do |vendor|
+      if vendor.vendor_id == id
+        vendor_obj = vendor
       end
     end
-    if vendor.nil?
+    if vendor_obj.nil?
       raise ArgumentError.new("This id cannot be found")
     else
-      return vendor
+      return vendor_obj
     end
   end
 
@@ -59,9 +59,9 @@ class FarMar::Vendor
   def sales
     sale_collection = []
     sales = FarMar::Sale.all
-      sales.length.times do |x|
-        if sales[x].vendor_id == self.vendor_id
-          sale_collection << sales[x]
+      sales.each do |sale|
+        if sale.vendor_id == self.vendor_id
+          sale_collection << sale
         end
       end
     return sale_collection
@@ -71,9 +71,9 @@ class FarMar::Vendor
   def revenue
     revenue = 0
     sales = FarMar::Sale.all
-    sales.length.times do |x|
-      if sales[x].vendor_id == self.vendor_id
-        revenue += sales[x].amount
+    sales.each do |sale|
+      if sale.vendor_id == self.vendor_id
+        revenue += sale.amount
       end
     end
     return revenue

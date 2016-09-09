@@ -21,9 +21,8 @@ class FarMar::Market
   # self.all uses the constant MARKETS_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
   def self.all
     markets = []
-    MARKETS_DATA.length.times do |x|
-      market_hash = {market_id: MARKETS_DATA[x][0], market_name: MARKETS_DATA[x][1], address: MARKETS_DATA[x][2], city: MARKETS_DATA[x][3], county: MARKETS_DATA[x][4], state: MARKETS_DATA[x][5], zip:
-        MARKETS_DATA[x][6]}
+    MARKETS_DATA.each do |market|
+      market_hash = {market_id: market[0], market_name: market[1], address: market[2], city: market[3], county: market[4], state: market[5], zip: market[6]}
       markets << FarMar::Market.new(market_hash)
     end
     return markets
@@ -32,16 +31,16 @@ class FarMar::Market
  # self.find returns the object associated with the id or raises an ArgumentError if the id cannot be found
   def self.find(id)
     markets = self.all
-    market = nil
-    markets.length.times do |x|
-      if markets[x].market_id == id
-        market = markets[x]
+    market_obj = nil
+    markets.each do |market|
+      if market.market_id == id
+        market_obj = market
       end
     end
-    if market.nil?
+    if market_obj.nil?
       raise ArgumentError.new("This id cannot be found")
     else
-      return market
+      return market_obj
     end
   end
 
@@ -49,9 +48,9 @@ class FarMar::Market
   def vendors
     vendor_collection = []
     vendors = FarMar::Vendor.all
-      vendors.length.times do |x|
-        if vendors[x].market_id == self.market_id
-          vendor_collection << vendors[x]
+      vendors.each do |vendor|
+        if vendor.market_id == self.market_id
+          vendor_collection << vendor
         end
       end
     return vendor_collection
