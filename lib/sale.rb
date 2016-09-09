@@ -7,7 +7,6 @@ class FarMar::Sale
     @sale_id = sale_hash[:sale_id].to_i
     @amount = sale_hash[:amount].to_i
     @purchase_time = DateTime.strptime(sale_hash[:purchase_time], "%F %T %z")
-    # 2013-11-07 04:34:56 -0800
     @vendor_id = sale_hash[:vendor_id].to_i
     @product_id = sale_hash[:product_id].to_i
   end
@@ -23,10 +22,16 @@ class FarMar::Sale
 
   def self.find(id)
     sales = self.all
+    sale = nil
     sales.length.times do |x|
       if sales[x].sale_id.to_i == id
-        return sales[x]
+        sale = sales[x]
       end
+    end
+    if sale == nil
+      raise ArgumentError.new("This id cannot be found")
+    else
+      return sale
     end
   end
 

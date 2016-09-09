@@ -6,8 +6,12 @@ describe 'Testing Vendor Class' do
     expect ((FarMar::Vendor.all).class).must_equal(Array)
   end
 
-  it 'testing to ensure that self.find does not return nil' do
-    expect (FarMar::Vendor.find(300)).wont_be_nil
+  it 'testing to ensure that self.find does not return nil if the vendor id exists' do
+    expect (FarMar::Vendor.all.sample).wont_be_nil
+  end
+
+  it 'testing to ensure that an ArgumentError is raised if the vendor id does not exist' do
+  expect(proc {FarMar::Vendor.find(13000)}).must_raise ArgumentError
   end
 
   it 'testing to ensure the correct market instance is returned for a provided vendor using the market_id field' do

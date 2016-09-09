@@ -26,10 +26,16 @@ class FarMar::Vendor
 
   def self.find(id)
     vendors = self.all
+    vendor = nil
     vendors.length.times do |x|
       if vendors[x].vendor_id == id
-        return vendors[x]
+        vendor = vendors[x]
       end
+    end
+    if vendor == nil
+      raise ArgumentError.new("This id cannot be found")
+    else
+      return vendor
     end
   end
 

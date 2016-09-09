@@ -6,8 +6,12 @@ it 'testing that the self.all method for the Sale Class will return an Array' do
     expect ((FarMar::Sale.all).class).must_equal(Array)
   end
 
-  it 'testing to ensure that self.find does not return nil' do
-    expect (FarMar::Sale.find(300)).wont_be_nil
+  it 'testing to ensure that self.find does not return nil if the sale id exists' do
+    expect (FarMar::Sale.all.sample).wont_be_nil
+  end
+
+  it 'testing to ensure that an ArgumentError is raised if the sale id does not exist' do
+  expect(proc {FarMar::Sale.find(13000)}).must_raise ArgumentError
   end
 
   it 'testing to ensure the correct vendor instance is returned for a provided vendor using the FarMar::Sale vendor_id field' do

@@ -26,10 +26,16 @@ class FarMar::Market
 
   def self.find(id)
     markets = self.all
+    market = nil
     markets.length.times do |x|
       if markets[x].market_id == id
-        return markets[x]
+        market = markets[x]
       end
+    end
+    if market == nil
+      raise ArgumentError.new("This id cannot be found")
+    else
+      return market
     end
   end
 

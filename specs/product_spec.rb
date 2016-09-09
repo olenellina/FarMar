@@ -12,8 +12,12 @@ describe 'Testing Product Class' do
     expect ((FarMar::Product.all).length).must_equal(line_count)
   end
 
-  it 'testing to ensure that self.find does not return nil' do
-    expect (FarMar::Product.find(300)).wont_be_nil
+  it 'testing to ensure that self.find does not return nil if the product id exists' do
+    expect (FarMar::Product.all.sample).wont_be_nil
+  end
+
+  it 'testing to ensure that an ArgumentError is raised if the product id does not exist' do
+  expect(proc {FarMar::Product.find(13000)}).must_raise ArgumentError
   end
 
   it 'testing to ensure the correct vendor instance is returned for a provided vendor using the FarMar::Product vendor_id field' do

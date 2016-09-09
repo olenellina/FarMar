@@ -20,10 +20,16 @@ class FarMar::Product
 
   def self.find(id)
     products = self.all
+    product = nil
     products.length.times do |x|
       if products[x].product_id.to_i == id
-        return products[x]
+        product = products[x]
       end
+    end
+    if product == nil
+      raise ArgumentError.new("This id cannot be found")
+    else
+      return product
     end
   end
 
