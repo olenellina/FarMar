@@ -8,17 +8,12 @@ class FarMar::Shared
   # calling class. If the id cannot be found, an ArgumentError is raised.
   def self.find(find_id)
     all = self.all
-    obj = nil
     all.each do |element|
       if element.id == find_id
-        obj = element
+        return element
       end
     end
-    if obj.nil?
-      raise ArgumentError.new("This id cannot be found")
-    else
-      return obj
-    end
+    raise ArgumentError.new("This id cannot be found")
   end
 
 end
