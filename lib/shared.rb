@@ -4,7 +4,8 @@ require './far_mar'
 
 class FarMar::Shared
 
-  # self.find will return the object associated with an id passed to it by the calling class. If the id cannot be found, an ArgumentError is raised.
+  # self.find will return the object associated with an id passed to it by the
+  # calling class. If the id cannot be found, an ArgumentError is raised.
   def self.find(find_id)
     all = self.all
     obj = nil

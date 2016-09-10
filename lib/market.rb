@@ -5,7 +5,8 @@ require './far_mar'
 class FarMar::Market < FarMar::Shared
   attr_reader :id, :market_name, :address, :city, :county, :state, :zip
 
-  # Reading in the associated csv file for this class and storing it in a constant (for efficency).
+  # Reading in the associated csv file for this class and storing it in a
+  # constant (for efficency).
   MARKETS_DATA = CSV.read("./support/markets.csv")
 
   def initialize(market_hash)
@@ -18,7 +19,9 @@ class FarMar::Market < FarMar::Shared
     @zip = market_hash[:zip]
   end
 
-  # self.all uses the constant MARKETS_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
+  # self.all uses the constant MARKETS_DATA to populate a hash. That hash is
+  # then used to create objects that are then stored in the sales array (local
+  # variable). It is that array that is returned anytime self.all is called.
   def self.all
     markets = []
     MARKETS_DATA.each do |market|
@@ -28,7 +31,9 @@ class FarMar::Market < FarMar::Shared
     return markets
   end
 
-  # vendors returns a collection of vendors objects for the market id associated with the market object calling this method. It will return an empty array if no vendors are associated with the market.
+  # vendors returns a collection of vendors objects for the market id associated
+  # with the market object calling this method. It will return an empty array
+  # if no vendors are associated with the market.
   def vendors
     vendor_collection = []
     vendors = FarMar::Vendor.all

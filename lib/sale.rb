@@ -5,7 +5,8 @@ require './far_mar'
 class FarMar::Sale < FarMar::Shared
   attr_reader :id, :amount, :purchase_time, :vendor_id, :product_id
 
-  # Reading in the associated csv file for this class and storing it in a constant (for efficency)
+  # Reading in the associated csv file for this class and storing it in a
+  # constant (for efficency)
   SALES_DATA = CSV.read("./support/sales.csv")
 
   def initialize(sale_hash)
@@ -16,7 +17,9 @@ class FarMar::Sale < FarMar::Shared
     @product_id = sale_hash[:product_id].to_i
   end
 
-  # self.all uses the constant SALES_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
+  # self.all uses the constant SALES_DATA to populate a hash. That hash is then
+  # used to create objects that are then stored in the sales array (local
+  # variable). It is that array that is returned anytime self.all is called.
   def self.all
     sales = []
     SALES_DATA.each do |sale|
@@ -26,7 +29,8 @@ class FarMar::Sale < FarMar::Shared
     return sales
   end
 
-# self.between has heavy dependencies on the correct format of the DateTime data in each object's purchase_time attribute.
+# self.between has heavy dependencies on the correct format of the DateTime data
+# in each object's purchase_time attribute.
   def self.between(beginning_time, end_time)
     sale_collection = []
     sales = FarMar::Sale.all

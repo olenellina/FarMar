@@ -5,7 +5,8 @@ require './far_mar'
 class FarMar::Product < FarMar::Shared
   attr_reader :id, :product_name, :vendor_id
 
-  # Reading in the associated csv file for this class and storing it in a constant (for efficency).
+  # Reading in the associated csv file for this class and storing it in a
+  # constant (for efficency).
   PRODUCTS_DATA = CSV.read("./support/products.csv")
 
   def initialize(product_hash)
@@ -14,7 +15,9 @@ class FarMar::Product < FarMar::Shared
     @vendor_id = product_hash[:vendor_id].to_i
   end
 
-  # self.all uses the constant PRODUCTS_DATA to populate a hash. That hash is then used to create objects that are then stored in the sales array (local variable). It is that array that is returned anytime self.all is called.
+  # self.all uses the constant PRODUCTS_DATA to populate a hash. That hash is
+  # then used to create objects that are then stored in the sales array (local
+  # variable). It is that array that is returned anytime self.all is called.
   def self.all
     products = []
     PRODUCTS_DATA.each do |product|
@@ -24,7 +27,9 @@ class FarMar::Product < FarMar::Shared
     return products
   end
 
-  # self.by_vendor returns a collection of the associated products for a provided vendor id. It will return an empty array if no products are associated with the vendor id provided.
+  # self.by_vendor returns a collection of the associated products for a
+  # provided vendor id. It will return an empty array if no products are
+  # associated with the vendor id provided.
   def self.by_vendor(vendor_id)
     product_collection = []
     products = FarMar::Product.all
@@ -40,7 +45,9 @@ class FarMar::Product < FarMar::Shared
     return FarMar::Vendor.find(self.vendor_id)
   end
 
-  # sales returns a collection of sales objects for the product id associated with a product object calling this method. It will return an empty array if no sales have occured for that product.
+  # sales returns a collection of sales objects for the product id associated
+  # with a product object calling this method. It will return an empty array if
+  # no sales have occured for that product.
   def sales
     sale_collection = []
     sales = FarMar::Sale.all
